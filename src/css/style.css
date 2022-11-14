@@ -1,0 +1,75 @@
+.globalBtn {
+  width: 100%;
+  height: 50%;
+  font-size: 0.7rem;
+}
+.globalRec {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.navtitle {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.rebBtn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(195, 88, 23);
+  border-color: rgb(195, 88, 23);
+  border-radius: 3px;
+  padding: 6px;
+  box-shadow: none;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.masterDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(199, 97, 19, 1) 0%,
+    rgba(189, 108, 46, 1) 35%,
+    rgba(194, 129, 63, 1) 71%,
+    rgba(207, 104, 104, 0.9500175070028011) 100%,
+    rgba(55, 0, 255, 1) 100%
+  );
+}
+
+.subDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  background-color: #fff;
+  width: 50%;
+  border-radius: 4px;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.subDiv .input-group {
+  width: 50%;
+}
+
+.subDiv h3 {
+  color: white;
+  background-color: rgb(223, 99, 22);
+  padding: 1rem;
+  border-radius: 3px;
+  width: 50%;
+  text-align: center;
+}
+.subDiv h3:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
