@@ -3,6 +3,9 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { callActions } from "../../store/call-slice";
+import { audioActions } from "../../store/audio-slice";
 function StopNav() {
   const location = useLocation();
   let navigate = useNavigate();
@@ -16,14 +19,33 @@ function StopNav() {
       navigate("/MCS");
     }
   };
-  useEffect(() => {
-    console.log();
-  }, []);
+
+  const playAudio = (e) => {
+    dispatch(audioActions.play(new Audio("/assets/resources/blank.wav")));
+  };
+  let dispatch = useDispatch();
+  const btnClicked = useSelector((state) => state.call.buttonClicked);
+
   return (
     <Card>
       <Card.Header>Action</Card.Header>
       <Card.Body>
-        <button className="btn btn-danger globalBtn">Stop Audio</button>
+        <button
+          className="btn btn-danger globalBtn fw-bold"
+          onClick={() => {
+            playAudio();
+          }}
+        >
+          Stop Audio
+        </button>
+        <button
+          className="btn btn-warning globalBtn mt-2 fw-bold"
+          onClick={() => {
+            playAudio();
+          }}
+        >
+          Blank
+        </button>
         {/* <InputGroup className="mt-2" size="sm">
           <InputGroup.Text className="fw-bold ">Campaign</InputGroup.Text>
           <Form.Select

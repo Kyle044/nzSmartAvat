@@ -24,12 +24,16 @@ function Master() {
 
   const clickStart = () => {
     if (state) {
-      console.log(new Date());
       navigate(state);
       dispatch(startActions.set(Date.now()));
+      dispatch(startActions.setCampaign(state));
     } else {
       alert("Kindly select a campaign");
     }
+  };
+
+  const clickLog = () => {
+    navigate("/Log");
   };
   const dispatch = useDispatch();
 
@@ -45,6 +49,14 @@ function Master() {
           Start Call
         </h3>
 
+        {/* <h4
+          className="exportBtn mt-2"
+          onClick={() => {
+            clickLog();
+          }}
+        >
+          Call Log
+        </h4> */}
         <InputGroup className="mt-2" size="sm">
           <InputGroup.Text className="fw-bold ">Campaign</InputGroup.Text>
           <Form.Select

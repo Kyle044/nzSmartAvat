@@ -9,7 +9,11 @@ import Legends from "../sidebar/Legends";
 import IntroCard from "../cards/introCard";
 import FillersCard from "../cards/fillersCard";
 import RebuttalsCard from "../cards/rebuttalsCard";
-import { introduction, rebuttals, fillers } from "../../data";
+import {
+  introduction,
+  rebuttals,
+  fillers
+} from "../../uploadedRecordings/dataCC";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { startActions } from "../../store/start-slice";
@@ -43,18 +47,42 @@ function CC() {
     }
   }, []);
 
+  const btnClicked = useSelector((state) => state.call.buttonClicked);
+  const call = useSelector((state) => state.start);
   const finish = () => {
     setStep(0);
-    dispatch(startActions.end(Date.now()));
+    var endCall = Date.now();
+    var startCall = call.start;
+    var callTime = new Date(endCall) - new Date(startCall);
+    var minutehehe = (callTime / (1000 * 60)) % 60;
+
+    var newItem = {
+      TimeSpent: Math.ceil(minutehehe),
+      ...call,
+      end: endCall,
+      log: btnClicked
+    };
+    var oldItems = JSON.parse(localStorage.getItem("callArray")) || [];
+    oldItems.push(newItem);
+    localStorage.setItem("callArray", JSON.stringify(oldItems));
     navigate("/");
   };
+  const handleKeyPress = (event) => {
+    if (event.key === "Space") {
+      console.log("space press here! ");
+    }
+  };
   return (
-    <Container fluid style={{ padding: "1rem", height: "100vh" }}>
+    <Container
+      fluid
+      style={{ padding: "1rem", height: "100vh" }}
+      onKeyPress={handleKeyPress}
+    >
       <Row>
         <Col lg={3}>
           <Stack gap={3}>
             <StopNav />
-            <HelpWindow />
+            <HelpWindow campaign="CC" />
             <Legends />
           </Stack>
         </Col>
@@ -75,7 +103,7 @@ function CC() {
             <FillersCard recording={cc.fillers[step]} />
             <RebuttalsCard recording={cc.rebuttals[step]} />
 
-            <div className="row ">
+            <div className="row mb-2">
               {step == 0 ? null : (
                 <div className="col center ">
                   <button
@@ -89,7 +117,7 @@ function CC() {
                 </div>
               )}
 
-              {step <= 2 ? (
+              {step <= 3 ? (
                 <div className="col center">
                   <button
                     className="btn btn-success w-100"

@@ -9,7 +9,13 @@ function rebuttalsCard({ recording }) {
         {recording
           ? recording.map((rec) => {
               return (
-                <RebuttalsBtn key={rec.src} name={rec.name} src={rec.src} />
+                <RebuttalsBtn
+                  key={rec.src}
+                  name={rec.name}
+                  src={rec.src}
+                  closing={rec.closing}
+                  probing={rec.probing}
+                />
               );
             })
           : null}

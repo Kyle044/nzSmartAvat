@@ -9,11 +9,17 @@ import Legends from "../sidebar/Legends";
 import IntroCard from "../cards/introCard";
 import FillersCard from "../cards/fillersCard";
 import RebuttalsCard from "../cards/rebuttalsCard";
-import { introduction, rebuttals, fillers } from "../../data";
+import {
+  introduction,
+  rebuttals,
+  fillers
+} from "../../uploadedRecordings/dataMCS";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { startActions } from "../../store/start-slice";
 function MCS() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [cc, setCC] = useState({
     introduction: [],
     rebuttals: [],
@@ -27,13 +33,28 @@ function MCS() {
   const prevStep = () => {
     setStep(step - 1);
   };
+  const btnClicked = useSelector((state) => state.call.buttonClicked);
+  const call = useSelector((state) => state.start);
 
   const finish = () => {
-    navigate("/");
     setStep(0);
+    dispatch(startActions.end(Date.now()));
+    var endCall = Date.now();
+    var startCall = call.start;
+    var callTime = new Date(endCall) - new Date(startCall);
+    var minutehehe = (callTime / (1000 * 60)) % 60;
+    var newItem = {
+      TimeSpent: Math.ceil(minutehehe),
+      ...call,
+      end: endCall,
+      log: btnClicked
+    };
+    var oldItems = JSON.parse(localStorage.getItem("callArray")) || [];
+    oldItems.push(newItem);
+    localStorage.setItem("callArray", JSON.stringify(oldItems));
+    navigate("/");
   };
   useEffect(() => {
-    console.log(introduction);
     setCC({
       introduction: introduction,
       rebuttals: rebuttals,
@@ -47,7 +68,7 @@ function MCS() {
         <Col lg={3}>
           <Stack gap={3}>
             <StopNav />
-            <HelpWindow />
+            <HelpWindow campaign="MCS" />
             <Legends />
           </Stack>
         </Col>
@@ -70,7 +91,7 @@ function MCS() {
                 </div>
               )}
 
-              {step <= 2 ? (
+              {step <= 3 ? (
                 <div className="col center">
                   <button
                     className="btn btn-success w-100"

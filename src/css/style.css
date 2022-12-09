@@ -73,3 +73,22 @@
   opacity: 0.9;
   cursor: pointer;
 }
+.modal-90w {
+  width: 90%;
+  max-width: none !important;
+}
+
+.exportBtn {
+  color: white;
+  background-color: rgb(39, 38, 37);
+  padding: 1rem;
+  border-radius: 3px;
+  width: 50%;
+  text-align: center;
+  transform: 0.3 ease;
+  cursor: pointer;
+}
+
+.exportBtn:hover {
+  opacity: 0.9;
+}
